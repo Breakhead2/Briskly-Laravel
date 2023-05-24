@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
 
-            $table->unsignedBigInteger('user_id');
             $table->string('name');
             $table->string('surname');
             $table->string('image_url')->default('profile.png');
@@ -26,10 +25,6 @@ return new class extends Migration
             $table->date('date_of_birthday');
             $table->unsignedBigInteger('course_id');
 
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->cascadeOnDelete();
             $table->foreign('course_id')
                 ->references('id')
                 ->on('courses');
