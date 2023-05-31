@@ -19,7 +19,7 @@ return new class extends Migration
 
             $table->string('heading')->unique();
             $table->text('text');
-            $table->string('tags')->nullable();
+            $table->string('video_link')->nullable();
             $table->unsignedBigInteger('exercise_id')->nullable();
             $table->unsignedBigInteger('course_id')->nullable();
         });
