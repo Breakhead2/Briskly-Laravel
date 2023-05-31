@@ -10,4 +10,5 @@ class Article extends Model
     use HasFactory;
 
     protected $fillable = ['heading', 'text', 'tags', 'course_id', 'exercise_id'];
+    protected $hidden = ['course_id', 'exercise_id'];
 }
