@@ -1,9 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\LessonApiController;
+use App\Http\Controllers\Api\SliderApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
-use App\Http\Controllers\LessonApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/get/lesson', [LessonApiController::class, 'getLessonData']);
+Route::get('/get/slides', [SliderApiController::class, 'getSlides']);
