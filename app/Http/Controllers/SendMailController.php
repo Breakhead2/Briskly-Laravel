@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\SendMail;
+use App\Models\Subscriber;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Validator;
@@ -24,11 +25,12 @@ class SendMailController extends Controller
             ];
         }
 
-        $toEmail = $request->input('email');
+        $subs = Subscriber::firstOrCreare(['email' => $request->input('email')]);
+
         $messageTemplate = new SendMail();
         $response = [];
 
-        Mail::to($toEmail)->send($messageTemplate);
+        Mail::to($subs->email)->send($messageTemplate);
         $response["success"] = true;
 
         header('Content-type: application/json');
