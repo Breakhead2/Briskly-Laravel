@@ -25,7 +25,7 @@ class SendMailController extends Controller
             ];
         }
 
-        $subs = Subscriber::firstOrCreare(['email' => $request->input('email')]);
+        $subs = Subscriber::firstOrCreate(['email' => $request->input('email')]);
 
         $messageTemplate = new SendMail();
         $response = [];
