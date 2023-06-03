@@ -25,13 +25,19 @@ class SendMailController extends Controller
             ];
         }
 
-        $subs = Subscriber::firstOrCreate(['email' => $request->input('email')]);
+        $subs = Subscriber::where('email', $request->input('email'))->first();
 
-        $messageTemplate = new SendMail();
-        $response = [];
+        if(is_null($subs)){
+            $newSubs = Subscriber::create(['email' => $request->input('email')]);
 
-        Mail::to($subs->email)->send($messageTemplate);
-        $response["success"] = true;
+            $messageTemplate = new SendMail();
+            $response = [];
+
+            Mail::to($newSubs->email)->send($messageTemplate);
+            $response["success"] = true;
+        } else {
+            $response["success"] = false;
+        }
 
         header('Content-type: application/json');
         echo json_encode($response, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
