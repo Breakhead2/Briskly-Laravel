@@ -35,8 +35,10 @@ class SendMailController extends Controller
 
             Mail::to($newSubs->email)->send($messageTemplate);
             $response["success"] = true;
+            $response["message"] = "Нам очень приятно, что вы стали частью дружной школы Briskly Learn.";
         } else {
-            $response["success"] = false;
+            $response["success"] = true;
+            $response["message"] = "Вы уже подписаны на рассылку обновлений.";
         }
 
         header('Content-type: application/json');
