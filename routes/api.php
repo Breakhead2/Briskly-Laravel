@@ -3,6 +3,8 @@
 use App\Http\Controllers\Api\LessonApiController;
 use App\Http\Controllers\Api\SliderApiController;
 use App\Http\Controllers\Api\CourseApiController;
+use App\Http\Controllers\Api\TestApiController;
+use App\Http\Controllers\Api\ArticleApiController;
 use App\Http\Controllers\SendMailController;
 
 use App\Http\Controllers\Auth\RegisterController;
@@ -29,6 +31,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/get/courses', [CourseApiController::class, 'getCoursesList']);
 Route::get('/get/lessons', [LessonApiController::class, 'getLessonsList']);
 Route::get('/get/lesson', [LessonApiController::class, 'getLessonData']);
+Route::get('/get/tests', [TestApiController::class, 'getTestsList']);
+Route::get('/get/articles', [ArticleApiController::class, 'getArticlesList']);
 Route::get('/get/slides', [SliderApiController::class, 'getSlides']);
 
 Route::post('/send/mail', [SendMailController::class, 'sendNotification']);
