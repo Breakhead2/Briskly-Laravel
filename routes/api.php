@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\LessonApiController;
 use App\Http\Controllers\Api\SliderApiController;
 use App\Http\Controllers\Api\CourseApiController;
 use App\Http\Controllers\SendMailController;
+use App\Http\Controllers\Auth\RegisterController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -29,3 +30,6 @@ Route::get('/get/lesson', [LessonApiController::class, 'getLessonData']);
 Route::get('/get/slides', [SliderApiController::class, 'getSlides']);
 
 Route::post('/send/mail', [SendMailController::class, 'sendNotification']);
+
+// auth
+Route::post('/auth/register', [RegisterController::class, 'create']);

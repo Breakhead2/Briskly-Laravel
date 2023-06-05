@@ -18,12 +18,12 @@ return new class extends Migration
             $table->timestamps();
 
             $table->string('name');
-            $table->string('surname');
-            $table->string('image_url')->default('profile.png');
+            $table->string('surname')->nullable();
+            $table->string('image_url')->default(env("APP_URL") . "storage/images/profiles/default.png");
             $table->text('about_me')->nullable();
             $table->string('city')->nullable();
-            $table->date('date_of_birthday');
-            $table->unsignedBigInteger('course_id');
+            $table->date('date_of_birthday')->nullable();
+            $table->unsignedBigInteger('course_id')->nullable();
 
             $table->foreign('course_id')
                 ->references('id')
