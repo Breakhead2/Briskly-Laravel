@@ -10,5 +10,5 @@ class Question extends Model
     use HasFactory;
 
     protected $fillable = ['value', 'answers', 'correct_answer', 'test_id'];
-    protected $hidden = ['test_id'];
+    protected $hidden = ['test_id', 'created_at', 'updated_at'];
 }

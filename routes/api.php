@@ -32,6 +32,7 @@ Route::get('/get/courses', [CourseApiController::class, 'getCoursesList']);
 Route::get('/get/lessons', [LessonApiController::class, 'getLessonsList']);
 Route::get('/get/lesson', [LessonApiController::class, 'getLessonData']);
 Route::get('/get/tests', [TestApiController::class, 'getTestsList']);
+Route::get('/get/test', [TestApiController::class, 'getTest']);
 Route::get('/get/articles', [ArticleApiController::class, 'getArticlesList']);
 Route::get('/get/slides', [SliderApiController::class, 'getSlides']);
 

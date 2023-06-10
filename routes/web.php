@@ -14,4 +14,4 @@ use App\Http\Controllers\ReactController;
 |
 */
 
-Route::get('/{page?}/{id?}',[ReactController::class, 'index']);
+Route::get('/{page?}/{theme?}/{id?}',[ReactController::class, 'index']);
