@@ -19,9 +19,10 @@ class LoginController extends Controller
             "password" => ["required", "min:8"],
         ],
             $messages = [
-                "required" => "Поле обязательно к заполнению",
+                "email.required" => "Необходимо указать электронную почту",
+                "password.required" => "Необходимо указать пароль",
                 "email" => "Укажите корректно электронный почтовый адрес",
-                "min" => "Минимальная длина пароля 8 символов",
+                "password.min" => "Минимальная длина пароля 8 символов",
             ],
         );
     }
@@ -58,5 +59,11 @@ class LoginController extends Controller
 
         header('Content-type: application/json');
         echo json_encode($response, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    }
+
+    public function logout()
+    {
+        $user = auth('sanctum')->user();
+        if ($user) Auth::guard('web')->logout();
     }
 }

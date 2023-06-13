@@ -22,10 +22,13 @@ class RegisterController extends Controller
             "repeat_pass" => ["required", new ConfirmPassword($request->input('password'))]
         ],
             $messages = [
-                "required" => "Поле обязательно к заполнению",
+                "name.required" => "Укажите как к вам обращаться",
+                "email.required" => "Необходимо указать электронную почту",
+                "email.unique" => "Данный email уже зарегистрирован",
                 "email" => "Укажите корректно электронный почтовый адрес",
-                "unique" => "Такой email уже зарегистрирован",
-                "min" => "Минимальная длина пароля 8 символов",
+                "password.required" => "Необходимо указать пароль",
+                "password.min" => "Минимальная длина пароля 8 символов",
+                "repeat_pass.required" => "Необходимо повторно указать пароль",
             ],
         );
     }

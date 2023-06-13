@@ -6,6 +6,8 @@ use App\Http\Controllers\Api\CourseApiController;
 use App\Http\Controllers\Api\TestApiController;
 use App\Http\Controllers\Api\ArticleApiController;
 use App\Http\Controllers\SendMailController;
+use App\Http\Controllers\Api\UserApiController;
+use App\Http\Controllers\Api\ProfileApiController;
 
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
@@ -41,3 +43,14 @@ Route::post('/send/mail', [SendMailController::class, 'sendNotification']);
 // auth
 Route::post('/auth/register', [RegisterController::class, 'create']);
 Route::post('/auth/login', [LoginController::class, 'auth']);
+
+Route::middleware('auth-sanctum')->group(function () {
+    Route::get('get/user', [UserApiController::class, 'getUser']);
+    Route::get('/auth/logout', [LoginController::class, 'logout']);
+    Route::get('/get/profile', [ProfileApiController::class, 'getProfile']);
+});
+
+// тестовые роуты
+//Route::get('/auth/logout', [LoginController::class, 'logout']);
+//Route::get('get/user', [UserApiController::class, 'getUser']);
+//Route::get('/get/profile', [ProfileApiController::class, 'getProfile']);
