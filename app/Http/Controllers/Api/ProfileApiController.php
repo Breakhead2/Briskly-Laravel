@@ -27,4 +27,27 @@ class ProfileApiController extends Controller
         header('Content-type: application/json');
         echo json_encode($response, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     }
+
+    public function sendPoints(Request $request)
+    {
+        $user = auth('sanctum')->user();
+        if ($user) {
+            $profile = Profile::find($user->profile->id);
+            $profile->points = $request->input('points');
+            $profile->save();
+
+            $response = [
+                "success" => true,
+                "profile" => $profile,
+            ];
+        } else {
+            $response = [
+                "success" => false,
+                "error" => "Вы не авторизованы",
+            ];
+        }
+
+        header('Content-type: application/json');
+        echo json_encode($response, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    }
 }
