@@ -10,17 +10,13 @@ class UserApiController extends Controller
 {
     public function getUser(){
         $user = auth('sanctum')->user();
+        $response = [];
 
         if ($user) {
             $response = [
                 "success" => true,
                 "user" => $user,
                 "profile" => Profile::find($user->profile_id),
-            ];
-        } else {
-            $response = [
-                "success" => false,
-                "error" => "Вы не авторизаванны",
             ];
         }
 
