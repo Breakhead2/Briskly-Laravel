@@ -45,7 +45,6 @@ class LoginController extends Controller
             $response["errors"] = ["Пользователь с данным email не найден"];
         } else {
             if (Hash::check($request->input('password'), $user->password)) {
-                dump("auth");
                 Auth::loginUsingId($user->id, true);
                 $response["success"] = true;
                 $response["data"] = [
