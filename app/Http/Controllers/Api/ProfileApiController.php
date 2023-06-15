@@ -4,13 +4,15 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Profile;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ProfileApiController extends Controller
 {
     public function getProfile()
     {
-        $user = auth('sanctum')->user();
+//        $user = auth('sanctum')->user();
+        $user = User::find(16);
 
         if ($user){
             $response = [
@@ -30,7 +32,8 @@ class ProfileApiController extends Controller
 
     public function sendPoints(Request $request)
     {
-        $user = auth('sanctum')->user();
+//        $user = auth('sanctum')->user();
+        $user = User::find(16);
         if ($user) {
             $profile = Profile::find($user->profile->id);
             $profile->points = $request->input('points');
