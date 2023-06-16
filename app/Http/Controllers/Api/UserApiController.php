@@ -6,12 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserApiController extends Controller
 {
     public function getUser(){
-//        $user = auth('sanctum')->user();
-        $user = User::find(16);
+        $user = auth('sanctum')->user();
+
         $response = [];
 
         if ($user) {

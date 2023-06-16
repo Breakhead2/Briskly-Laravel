@@ -45,14 +45,14 @@ Route::post('/auth/register', [RegisterController::class, 'create']);
 Route::post('/auth/login', [LoginController::class, 'auth']);
 
 Route::middleware('auth:sanctum')->group(function () {
-//    Route::get('/get/user', [UserApiController::class, 'getUser']);
-//    Route::get('/auth/logout', [LoginController::class, 'logout']);
-//    Route::get('/get/profile', [ProfileApiController::class, 'getProfile']);
-//    Route::post('/send/points', [ProfileApiController::class, 'sendPoints']);
+    Route::get('/get/user', [UserApiController::class, 'getUser']);
+    Route::get('/auth/logout', [LoginController::class, 'logout']);
+    Route::get('/get/profile', [ProfileApiController::class, 'getProfile']);
+    Route::post('/send/points', [ProfileApiController::class, 'sendPoints']);
 });
 
 // тестовые роуты
-Route::get('/auth/logout', [LoginController::class, 'logout']);
-Route::get('/get/user', [UserApiController::class, 'getUser']);
-Route::get('/get/profile', [ProfileApiController::class, 'getProfile']);
-Route::post('/send/points', [ProfileApiController::class, 'sendPoints']);
+//Route::get('/auth/logout', [LoginController::class, 'logout']);
+//Route::get('/get/user', [UserApiController::class, 'getUser']);
+//Route::get('/get/profile', [ProfileApiController::class, 'getProfile']);
+//Route::post('/send/points', [ProfileApiController::class, 'sendPoints']);

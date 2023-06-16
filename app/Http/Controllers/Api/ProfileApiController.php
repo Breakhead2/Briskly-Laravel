@@ -11,8 +11,8 @@ class ProfileApiController extends Controller
 {
     public function getProfile()
     {
-//        $user = auth('sanctum')->user();
-        $user = User::find(16);
+        $user = auth('sanctum')->user();
+//        $user = User::find(16);
 
         if ($user){
             $response = [
@@ -32,11 +32,11 @@ class ProfileApiController extends Controller
 
     public function sendPoints(Request $request)
     {
-//        $user = auth('sanctum')->user();
-        $user = User::find(16);
+        $user = auth('sanctum')->user();
+//        $user = User::find(16);
         if ($user) {
-            $profile = Profile::find($user->profile->id);
-            $profile->points = $request->input('points');
+            $profile = Profile::find($user->profile_id);
+            $profile->points += intval($request->input('points'));
             $profile->save();
 
             $response = [
