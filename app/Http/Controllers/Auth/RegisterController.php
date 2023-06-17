@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use App\Rules\ConfirmPassword;
-use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
@@ -49,8 +48,7 @@ class RegisterController extends Controller
             "email" => $request->input('email'),
             "password" => Hash::make($request->input('password')),
         ]);
-        Auth::loginUsingId($user->id, true);
-
+        $token = $user->createToken($request->email)->plainTextToken;
         $profile = Profile::create([
             "name" => $user->name,
         ]);
@@ -62,7 +60,8 @@ class RegisterController extends Controller
         $response["data"] = [
             "user" => $user,
             "profile" => Profile::find($user->profile_id),
-        ];
+            "token" => $token,
+            ];
 
         header('Content-type: application/json');
         echo json_encode($response, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);

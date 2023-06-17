@@ -45,11 +45,11 @@ class LoginController extends Controller
             $response["errors"] = ["Пользователь с данным email не найден"];
         } else {
             if (Hash::check($request->input('password'), $user->password)) {
-                Auth::loginUsingId($user->id, true);
+                $token = $user->createToken($request->email)->plainTextToken;
                 $response["success"] = true;
                 $response["data"] = [
-                    "user" => $user,
                     "profile" => Profile::find($user->profile_id),
+                    "token" => $token,
                 ];
             } else {
                 $response["success"] = false;
