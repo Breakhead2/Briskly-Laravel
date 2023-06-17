@@ -49,4 +49,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/auth/logout', [LoginController::class, 'logout']);
     Route::get('/get/profile', [ProfileApiController::class, 'getProfile']);
     Route::get('/send/points', [ProfileApiController::class, 'sendPoints']);
+//    Route::get('/get/lessons', [LessonApiController::class, 'getLessonsList']);
 });

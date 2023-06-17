@@ -7,15 +7,26 @@ use App\Models\Article;
 use App\Models\Exercise;
 use App\Models\Question;
 use App\Models\Test;
+use App\Models\UserLesson;
 use Illuminate\Http\Request;
 
 class LessonApiController extends Controller
 {
     public function getLessonsList(Request $request)
     {
+//        $user = auth('sanctum')->user;
         $courseId = $request->input('id');
         $lessons = Article::where('course_id', $courseId)->get();
         $data = [];
+
+//        if ($user){
+//            $passLessons = UserLesson::where("user_id", $user->id)->get();
+//            if ($passLessons){
+//                foreach ($passLessons as $passLesson){
+//                    $data["pass_lessons"][] = $passLesson->id;
+//                }
+//            }
+//        }
 
         if($lessons) {
             foreach ($lessons as $lesson){
