@@ -58,7 +58,6 @@ class RegisterController extends Controller
 
         $response["success"] = true;
         $response["data"] = [
-            "user" => $user,
             "profile" => Profile::find($user->profile_id),
             "token" => $token,
             ];

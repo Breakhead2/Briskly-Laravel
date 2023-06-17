@@ -38,7 +38,7 @@ Route::get('/get/test', [TestApiController::class, 'getTest']);
 Route::get('/get/articles', [ArticleApiController::class, 'getArticlesList']);
 Route::get('/get/slides', [SliderApiController::class, 'getSlides']);
 
-Route::post('/send/mail', [SendMailController::class, 'sendNotification']);
+Route::get('/send/mail', [SendMailController::class, 'sendNotification']);
 
 // auth
 Route::post('/auth/register', [RegisterController::class, 'create']);
@@ -48,7 +48,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/get/user', [UserApiController::class, 'getUser']);
     Route::get('/auth/logout', [LoginController::class, 'logout']);
     Route::get('/get/profile', [ProfileApiController::class, 'getProfile']);
-    Route::post('/send/points', [ProfileApiController::class, 'sendPoints']);
+    Route::get('/send/points', [ProfileApiController::class, 'sendPoints']);
 });
 
 // тестовые роуты
