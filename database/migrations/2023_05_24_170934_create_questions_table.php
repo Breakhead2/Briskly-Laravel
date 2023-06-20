@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->string('value');
-            $table->string('answers');
+            $table->text('answers');
             $table->string('correct_answer');
             $table->unsignedBigInteger('test_id')->nullable();
         });
