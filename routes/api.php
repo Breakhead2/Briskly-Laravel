@@ -31,7 +31,6 @@ use Illuminate\Support\Facades\Route;
 //});
 
 Route::get('/get/courses', [CourseApiController::class, 'getCoursesList']);
-Route::get('/get/lessons', [LessonApiController::class, 'getLessonsList']);
 Route::get('/get/lesson', [LessonApiController::class, 'getLessonData']);
 Route::get('/get/tests', [TestApiController::class, 'getTestsList']);
 Route::get('/get/test', [TestApiController::class, 'getTest']);
@@ -49,5 +48,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/auth/logout', [LoginController::class, 'logout']);
     Route::get('/get/profile', [ProfileApiController::class, 'getProfile']);
     Route::get('/send/points', [ProfileApiController::class, 'sendPoints']);
-//    Route::get('/get/lessons', [LessonApiController::class, 'getLessonsList']);
+    Route::get('/get/lessons', [LessonApiController::class, 'getLessonsList']);
 });
