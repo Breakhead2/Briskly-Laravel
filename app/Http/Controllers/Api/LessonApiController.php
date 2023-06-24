@@ -61,12 +61,12 @@ class LessonApiController extends Controller
         $lesson = Article::find($lessonId);
 
         if($lesson){
-            $test = Test::find($lesson->id);
+            $test = Test::where("article_id", $lesson->id)->first();
             $questions = Question::where('test_id', $test->id)->get();
             $response = [
                 "success" => true,
                 "lesson" => $lesson,
-                "exercise_type" => Exercise::find($lesson->id)->type,
+                "exercise_type" => Exercise::find($lesson->exercise_id)->type,
                 "questions" => $questions,
             ];
         } else {
