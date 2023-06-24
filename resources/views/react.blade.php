@@ -6,7 +6,7 @@
     <title>Briskly School</title>
     <link href="./img/favicon.ico" rel="icon" />
     <script defer="defer" src="/static/js/main.af17fb2a.js"></script>
-    <link href="/static/css/main.54a6dc3a.css" rel="stylesheet" />
+    <link href="/static/css/main.d4d73144.css" rel="stylesheet" />
 </head>
 <body>
 <div id="root"></div>
