@@ -35,6 +35,7 @@ Route::get('/get/lesson', [LessonApiController::class, 'getLessonData']);
 Route::get('/get/tests', [TestApiController::class, 'getTestsList']);
 Route::get('/get/test', [TestApiController::class, 'getTest']);
 Route::get('/get/articles', [ArticleApiController::class, 'getArticlesList']);
+Route::get('/get/article', [ArticleApiController::class, 'getArticle']);
 Route::get('/get/slides', [SliderApiController::class, 'getSlides']);
 
 Route::get('/send/mail', [SendMailController::class, 'sendNotification']);
@@ -49,4 +50,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/get/profile', [ProfileApiController::class, 'getProfile']);
     Route::get('/send/points', [ProfileApiController::class, 'sendPoints']);
     Route::get('/get/lessons', [LessonApiController::class, 'getLessonsList']);
+    Route::post('/send/words', [ProfileApiController::class, 'storeWords']);
 });
+
+

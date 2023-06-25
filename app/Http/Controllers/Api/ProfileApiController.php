@@ -7,6 +7,7 @@ use App\Models\Profile;
 use App\Models\User;
 use App\Models\UserLesson;
 use App\Models\UserTest;
+use App\Models\UserWord;
 use Illuminate\Http\Request;
 
 class ProfileApiController extends Controller
@@ -69,14 +70,40 @@ class ProfileApiController extends Controller
                 "success" => true,
                 "profile" => $profile,
             ];
-        } else {
-            $response = [
-                "success" => false,
-                "error" => "Вы не авторизованы",
-            ];
-        }
 
-        header('Content-type: application/json');
-        echo json_encode($response, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+            header('Content-type: application/json');
+            echo json_encode($response, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        }
+    }
+
+    public function storeWords(Request $request)
+    {
+        $user = auth('sanctum')->user();
+
+        if ($user) {
+            $newWords = ($request->input('words'));
+            $userWords = UserWord::where("user_id", $user->id)->get();
+            $vocabulary = [];
+
+            foreach ($userWords as $userWord) {
+                $vocabulary[] = $userWord->word_id;
+            }
+
+            foreach ($newWords as $newWord) {
+                if (!in_array($newWord, $vocabulary)) {
+                    UserWord::create([
+                        "user_id" => $user->id,
+                        "word_id" => $newWord
+                    ]);
+                }
+            }
+            $response = [
+                "success" => true,
+                "message" => "Слова успешно добавлены в словарь."
+            ];
+
+            header('Content-type: application/json');
+            echo json_encode($response, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        }
     }
 }

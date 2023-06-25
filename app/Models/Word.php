@@ -9,5 +9,6 @@ class Word extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['value', 'translate', 'transcription', 'image', 'course_id'];
+    protected $fillable = ['value', 'translate', 'transcription', 'image', 'article_id'];
+    protected $hidden = ['created_at', 'updated_at', 'article_id'];
 }
