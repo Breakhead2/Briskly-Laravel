@@ -43,7 +43,7 @@ class ProfileApiController extends Controller
                 case "test":
                     $test = UserTest::where([
                         ["user_id", $user->id],
-                        ["test_id" => $request->input('id')]
+                        ["test_id", $request->input('id')]
                         ])->first();
                     if (is_null($test)){
                         UserTest::create(["user_id" => $user->id, "test_id" => $request->input('id')]);
@@ -55,7 +55,7 @@ class ProfileApiController extends Controller
                 case "lesson":
                     $lesson = UserLesson::where([
                         ["user_id", $user->id],
-                        ["lesson_id" => $request->input('id')]
+                        ["lesson_id", $request->input('id')]
                     ])->first();
                     if (is_null($lesson)){
                         UserLesson::create(["user_id" => $user->id, "lesson_id" => $request->input('id')]);

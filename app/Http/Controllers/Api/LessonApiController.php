@@ -25,7 +25,7 @@ class LessonApiController extends Controller
             $passLessons = UserLesson::where("user_id", $user->id)->get();
             if ($passLessons){
                 foreach ($passLessons as $passLesson){
-                    $passLessonsArray[] = $passLesson->id;
+                    $passLessonsArray[] = $passLesson->lesson_id;
                 }
             }
         }
