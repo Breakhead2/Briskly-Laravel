@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Briskly School</title>
     <link href="./img/favicon.ico" rel="icon" />
-    <script defer="defer" src="/static/js/main.ebb1f520.js"></script>
-    <link href="/static/css/main.326ce55d.css" rel="stylesheet" />
+    <script defer="defer" src="/static/js/main.33335413.js"></script>
+    <link href="/static/css/main.96edf7e9.css" rel="stylesheet" />
 </head>
 <body>
 <div id="root"></div>
