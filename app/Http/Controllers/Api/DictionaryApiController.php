@@ -39,6 +39,17 @@ class DictionaryApiController extends Controller
 
     public function removeWord(Request $request)
     {
+        $user = auth('sanctum')->user();
+
         $wordId = $request->input('id');
+        $userWord = UserWord::where([
+            ["word_id", $wordId],
+            ["user_id", $user->id],
+            ])->first();
+        $userWord->delete();
+
+        $response["success"] = true;
+        header("Content-type: application/json");
+        echo json_encode($response, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     }
 }

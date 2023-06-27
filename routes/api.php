@@ -55,5 +55,3 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/get/dictionary', [DictionaryApiController::class, 'getDictionary']);
     Route::get('/remove/word', [DictionaryApiController::class, 'removeWord']);
 });
-//Route::get('/get/dictionary', [DictionaryApiController::class, 'getDictionary']);
-
