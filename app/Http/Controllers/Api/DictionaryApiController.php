@@ -13,7 +13,6 @@ class DictionaryApiController extends Controller
     public function getDictionary(): void
     {
         $user = auth('sanctum')->user();
-//        $user = User::find(15);
 
         $words = [];
         $userWordsId = UserWord::where("user_id", $user->id)->get();
@@ -36,5 +35,10 @@ class DictionaryApiController extends Controller
 
         header("Content-type: application/json");
         echo json_encode($response, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    }
+
+    public function removeWord(Request $request)
+    {
+        $wordId = $request->input('id');
     }
 }

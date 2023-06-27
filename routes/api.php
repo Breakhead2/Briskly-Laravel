@@ -53,6 +53,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/get/lessons', [LessonApiController::class, 'getLessonsList']);
     Route::post('/send/words', [ProfileApiController::class, 'storeWords']);
     Route::get('/get/dictionary', [DictionaryApiController::class, 'getDictionary']);
+    Route::get('/remove/word', [DictionaryApiController::class, 'removeWord']);
 });
 //Route::get('/get/dictionary', [DictionaryApiController::class, 'getDictionary']);
 
