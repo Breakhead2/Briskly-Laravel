@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\ArticleApiController;
 use App\Http\Controllers\SendMailController;
 use App\Http\Controllers\Api\UserApiController;
 use App\Http\Controllers\Api\ProfileApiController;
+use App\Http\Controllers\Api\DictionaryApiController;
 
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
@@ -51,6 +52,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/send/points', [ProfileApiController::class, 'sendPoints']);
     Route::get('/get/lessons', [LessonApiController::class, 'getLessonsList']);
     Route::post('/send/words', [ProfileApiController::class, 'storeWords']);
+    Route::get('/get/dictionary', [DictionaryApiController::class, 'getDictionary']);
 });
-
+//Route::get('/get/dictionary', [DictionaryApiController::class, 'getDictionary']);
 
