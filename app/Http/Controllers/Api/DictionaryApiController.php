@@ -48,7 +48,16 @@ class DictionaryApiController extends Controller
             ])->first();
         $userWord->delete();
 
-        $response["success"] = true;
+        $words = [];
+        $userWordsId = UserWord::where("user_id", $user->id)->get();
+        foreach ($userWordsId as $item) {
+            $words[] = Word::find($item->word_id);
+        }
+
+        $response = [
+            "success" => true,
+            "words" => $words,
+            ];
         header("Content-type: application/json");
         echo json_encode($response, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     }
