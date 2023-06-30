@@ -9,9 +9,27 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
 
 class DictionaryApiController extends Controller
 {
+    protected function validator(Request $request)
+    {
+        return Validator::make($request->all(), [
+            "word" => ["required", "max:64"],
+            "translate" => ["required", "max:64"],
+            "image" => ["required"]
+        ],
+            $messages = [
+                "word.required" => "Необходимо заполнить поле слово",
+                "word.max" => "Слишком длинное слово",
+                "translate.required" => "Необходимо указать перевод",
+                "translate.max" => "Слишком длинное слово",
+                "image.required" => "Необходимо задать картинку",
+            ],
+        );
+    }
+
     public function getDictionary(): void
     {
         $user = auth('sanctum')->user();
@@ -67,8 +85,17 @@ class DictionaryApiController extends Controller
 
     public function storeWord(Request $request)
     {
-//        $user = auth("sanctum")->user();
-        $user = User::find(15);
+        $user = auth("sanctum")->user();
+//        $user = User::find(15);
+
+        $validator = $this->validator($request);
+
+        if ($validator->fails()) {
+            return [
+                "success" => false,
+                "errors" => $validator->errors()->all(),
+            ];
+        }
 
         $word = Word::updateOrCreate(["id" => $request->input("wordId")], [
             "value" => $request->input("word"),
