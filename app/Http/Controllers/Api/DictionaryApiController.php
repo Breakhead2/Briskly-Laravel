@@ -7,6 +7,8 @@ use App\Models\UserWord;
 use App\Models\Word;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class DictionaryApiController extends Controller
 {
@@ -46,6 +48,7 @@ class DictionaryApiController extends Controller
             ["word_id", $wordId],
             ["user_id", $user->id],
             ])->first();
+        Word::find($wordId)->delete();
         $userWord->delete();
 
         $words = [];
@@ -58,6 +61,60 @@ class DictionaryApiController extends Controller
             "success" => true,
             "words" => $words,
             ];
+        header("Content-type: application/json");
+        echo json_encode($response, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    }
+
+    public function storeWord(Request $request)
+    {
+//        $user = auth("sanctum")->user();
+        $user = User::find(15);
+
+        $word = Word::firstOrCreate(["user_id" => $user->id, "value" => $request->input("word")], [
+            "translate" =>$request->input("translate"),
+        ]);
+
+        if ($request->input("image")) {
+            $code = explode('base64,', $request->input("image"))[1];
+            $image = base64_decode($code);
+
+            if (isset($word->image)) {
+                Storage::delete(Storage::files('public/images/words/' . $word->id));
+            }
+
+            $file = $request->input('word') . Str::random(5) . '.png';
+            Storage::put('public/images/words/' . $word->id . '/' . $file, $image);
+            $path = env('APP_URL') . 'storage/images/words/' . $word->id . '/' . $file;
+            $word->image = $path;
+            $word->save();
+        }
+
+        $userWord = UserWord::where([
+            ["word_id", $word->id],
+            ["user_id", $user->id],
+        ])->first();
+
+        if (is_null($userWord)) {
+            UserWord::create([
+                "user_id" => $user->id,
+                "word_id" => $word->id,
+            ]);
+            $userWordsId = UserWord::where("user_id", $user->id)->get();
+            $words = [];
+            foreach ($userWordsId as $item) {
+                $words[] = Word::find($item->word_id);
+            }
+            $response = [
+                "success" => true,
+                "words" => $words,
+            ];
+        } else {
+            $response = [
+                "success" => false,
+                "error" => "Такое слово уже есть в словаре",
+            ];
+        }
+
         header("Content-type: application/json");
         echo json_encode($response, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     }

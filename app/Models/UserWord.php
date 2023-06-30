@@ -11,4 +11,5 @@ class UserWord extends Model
 
     protected $table = "users_words";
     protected $fillable = ['user_id', 'word_id'];
+    protected $hidden = ['created_at', 'updated_at'];
 }
