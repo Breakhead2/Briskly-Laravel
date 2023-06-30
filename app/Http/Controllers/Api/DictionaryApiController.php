@@ -70,11 +70,13 @@ class DictionaryApiController extends Controller
 //        $user = auth("sanctum")->user();
         $user = User::find(15);
 
-        $word = Word::firstOrCreate(["user_id" => $user->id, "value" => $request->input("word")], [
+        $word = Word::updateOrCreate(["id" => $request->input("wordId")], [
+            "value" => $request->input("word"),
             "translate" =>$request->input("translate"),
         ]);
 
-        if ($request->input("image")) {
+        if ($request->input("image") && !str_contains($request->input('image'), env('APP_URL'))) {
+
             $code = explode('base64,', $request->input("image"))[1];
             $image = base64_decode($code);
 
@@ -99,21 +101,55 @@ class DictionaryApiController extends Controller
                 "user_id" => $user->id,
                 "word_id" => $word->id,
             ]);
-            $userWordsId = UserWord::where("user_id", $user->id)->get();
-            $words = [];
-            foreach ($userWordsId as $item) {
-                $words[] = Word::find($item->word_id);
-            }
+        }
+
+        $userWordsId = UserWord::where("user_id", $user->id)->get();
+        $words = [];
+        foreach ($userWordsId as $item) {
+            $words[] = Word::find($item->word_id);
+        }
+
+        $response = [
+            "success" => true,
+            "words" => $words,
+        ];
+
+        header("Content-type: application/json");
+        echo json_encode($response, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    }
+
+    public function getWord(Request $request)
+    {
+        $user = auth("sanctum")->user();
+        $wordId = $request->input("id");
+
+        $word = Word::find($wordId);
+
+        if ($word) {
             $response = [
                 "success" => true,
-                "words" => $words,
+                "word" => $word,
             ];
         } else {
             $response = [
                 "success" => false,
-                "error" => "Такое слово уже есть в словаре",
+                "error" => "Word doesn't exist",
             ];
         }
+
+        header("Content-type: application/json");
+        echo json_encode($response, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    }
+
+    public function clearForm() {
+        $response = [
+            "success" => true,
+            "word" => [
+                "value" => "",
+                "translate" => "",
+                "image" => "",
+            ]
+        ];
 
         header("Content-type: application/json");
         echo json_encode($response, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
