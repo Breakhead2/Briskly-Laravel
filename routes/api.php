@@ -9,6 +9,7 @@ use App\Http\Controllers\SendMailController;
 use App\Http\Controllers\Api\UserApiController;
 use App\Http\Controllers\Api\ProfileApiController;
 use App\Http\Controllers\Api\DictionaryApiController;
+use App\Http\Controllers\Api\ReviewApiController;
 
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
@@ -57,5 +58,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/add/word', [DictionaryApiController::class, 'storeWord']);
     Route::get('/get/word', [DictionaryApiController::class, 'getWord']);
     Route::get('/clear/form', [DictionaryApiController::class, 'clearForm']);
+    Route::post('/send/review', [ReviewApiController::class, 'sendReview']);
 });
-//Route::post('/add/word', [DictionaryApiController::class, 'addNewWord']);
