@@ -39,7 +39,7 @@ Route::get('/get/test', [TestApiController::class, 'getTest']);
 Route::get('/get/articles', [ArticleApiController::class, 'getArticlesList']);
 Route::get('/get/article', [ArticleApiController::class, 'getArticle']);
 Route::get('/get/slides', [SliderApiController::class, 'getSlides']);
-
+Route::get('/get/reviews',[ReviewApiController::class, 'getLastFiveReview']);
 Route::get('/send/mail', [SendMailController::class, 'sendNotification']);
 
 // auth
