@@ -9,13 +9,28 @@ use App\Models\UserLesson;
 use App\Models\UserTest;
 use App\Models\UserWord;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class ProfileApiController extends Controller
 {
+    protected function validator(Request $request)
+    {
+        return Validator::make($request->all(), [
+            "name" => "required|max:255",
+            "password" => ["required"],
+            "surname" => ["max:255", "sometimes", "nullable"],
+        ],
+            $messages = [
+                "name.required" => "Укажите как к вам обращаться",
+                "password.required" => "Необходимо указать пароль",
+            ],
+        );
+    }
+
     public function getProfile()
     {
         $user = auth('sanctum')->user();
-//        $user = User::find(16);
 
         if ($user){
             $response = [
@@ -26,6 +41,41 @@ class ProfileApiController extends Controller
             $response = [
                 "success" => false,
                 "error" => "Вы не авторизованы",
+            ];
+        }
+
+        header('Content-type: application/json');
+        echo json_encode($response, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    }
+
+    public function editProfile(Request $request)
+    {
+        $validator = $this->validator($request);
+
+        if ($validator->fails()) {
+            return [
+                "success" => false,
+                "errors" => $validator->errors()->all(),
+            ];
+        }
+        $user = auth("sanctum")->user();
+
+        if (Hash::check($request->input("password"), $user->password)) {
+            $profile = Profile::find($user->profile_id);
+            $profile->fill([
+                'name' => $request->input("name"),
+                'surname' => $request->input("surname"),
+            ]);
+            $profile->save();
+
+            $response = [
+                "success" => true,
+                "profile" => $profile,
+            ];
+        } else {
+            $response = [
+                "success" => false,
+                "errors" => ["Неверный пароль"],
             ];
         }
 
