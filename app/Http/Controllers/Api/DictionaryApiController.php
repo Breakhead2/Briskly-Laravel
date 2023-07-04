@@ -66,7 +66,11 @@ class DictionaryApiController extends Controller
             ["word_id", $wordId],
             ["user_id", $user->id],
             ])->first();
-        Word::find($wordId)->delete();
+        $word = Word::find($wordId);
+
+        if ($word->user_id) {
+            $word->delete();
+        }
         $userWord->delete();
 
         $words = [];
@@ -100,6 +104,7 @@ class DictionaryApiController extends Controller
         $word = Word::updateOrCreate(["id" => $request->input("wordId")], [
             "value" => $request->input("word"),
             "translate" =>$request->input("translate"),
+            "user_id" => $user->id,
         ]);
 
         if ($request->input("image") && !str_contains($request->input('image'), env('APP_URL'))) {
