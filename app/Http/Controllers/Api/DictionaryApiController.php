@@ -70,6 +70,7 @@ class DictionaryApiController extends Controller
 
         if ($word->user_id) {
             $word->delete();
+            Storage::delete(Storage::deleteDirectory('public/images/words/' . $word->id));
         }
         $userWord->delete();
 
