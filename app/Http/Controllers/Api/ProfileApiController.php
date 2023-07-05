@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Avatar;
 use App\Models\Profile;
 use App\Models\User;
 use App\Models\UserLesson;
@@ -36,6 +37,7 @@ class ProfileApiController extends Controller
             $response = [
                 "success" => true,
                 "profile" => Profile::find($user->profile_id),
+                "avatars" => Avatar::all(),
             ];
         } else {
             $response = [
