@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Avatar;
 use App\Models\Profile;
 use App\Models\User;
+use App\Models\UserAvatar;
 use App\Models\UserLesson;
 use App\Models\UserTest;
 use App\Models\UserWord;
@@ -34,10 +35,18 @@ class ProfileApiController extends Controller
         $user = auth('sanctum')->user();
 
         if ($user){
+            $userAvatars = UserAvatar::where("user_id", $user->id)->get();
+            $data = [];
+
+            foreach ($userAvatars as $avatar){
+                $data[] = $avatar->avatar_id;
+            }
+
             $response = [
                 "success" => true,
                 "profile" => Profile::find($user->profile_id),
                 "avatars" => Avatar::all(),
+                "user_avatars" => $data,
             ];
         } else {
             $response = [
@@ -157,5 +166,50 @@ class ProfileApiController extends Controller
             header('Content-type: application/json');
             echo json_encode($response, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
         }
+    }
+
+    public function buyAvatar(Request $request)
+    {
+        $user = auth("sanctum")->user();
+        $avatar = Avatar::find($request->input('id'));
+        $profileUser = Profile::find($user->profile_id);
+
+        if ($profileUser->points > $avatar->cost) {
+            $profileUser->points -= $avatar->cost;
+            $profileUser->image_url = $avatar->image_url;
+            $profileUser->save();
+
+            $userAvatar = UserAvatar::where([
+                ["user_id", $user->id],
+                ["avatar_id", $avatar->id]
+            ])->first();
+
+            if (is_null($userAvatar)) {
+                UserAvatar::create([
+                    "user_id" => $user->id,
+                    "avatar_id" => $avatar->id,
+                ]);
+            }
+            $userAvatars = UserAvatar::where("user_id", $user->id)->get();
+            $data = [];
+
+            foreach ($userAvatars as $avatar){
+                $data[] = $avatar->avatar_id;
+            }
+
+            $response = [
+                "success" => true,
+                "profile" => $profileUser,
+                "user_avatars" => $data
+            ];
+        } else {
+            $response = [
+                "success" => false,
+                "error" => "You don't have enough points",
+            ];
+        }
+
+        header('Content-type: application/json');
+        echo json_encode($response, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     }
 }
