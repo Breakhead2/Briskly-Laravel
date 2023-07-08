@@ -60,4 +60,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/get/word', [DictionaryApiController::class, 'getWord']);
     Route::get('/clear/form', [DictionaryApiController::class, 'clearForm']);
     Route::post('/send/review', [ReviewApiController::class, 'sendReview']);
+    Route::get('/buy/avatar', [ProfileApiController::class, 'buyAvatar']);
 });
