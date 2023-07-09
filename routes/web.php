@@ -15,3 +15,4 @@ use App\Http\Controllers\ReactController;
 */
 
 Route::get('/{page?}/{theme?}/{id?}',[ReactController::class, 'index']);
+Route::get('/search',[ReactController::class, 'search']);

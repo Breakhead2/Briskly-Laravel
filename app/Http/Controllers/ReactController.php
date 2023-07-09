@@ -10,4 +10,5 @@ class ReactController extends Controller
     {
         return view('react');
     }
+
 }
