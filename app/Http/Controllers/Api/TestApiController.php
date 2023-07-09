@@ -28,7 +28,26 @@ class TestApiController extends Controller
         header('Content-type: application/json');
         echo json_encode($response, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     }
+     public function search(Request $request)
+    {
+        $s = $request->$s;
+        $testsearch = Test::where('name', 'LIKE', '%{$s}%');
+         if ($testsearch) {
+            $response = [
+                "success" => true,
+                "testsearch" => $testsearch,
+            ];
+        } else {
+            $response = [
+                "success" => false,
+                "error" => "Can't find tests",
+            ];
+        }
 
+        header('Content-type: application/json');
+        echo json_encode($response, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    }
+    
     public function getTest(Request $request)
     {
         $testId = $request->input('id');
