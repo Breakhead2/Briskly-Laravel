@@ -10,10 +10,5 @@ class ReactController extends Controller
     {
         return view('react');
     }
-     public function search(Request $request)
-    {
-        $s = $request->$s;
-        $test = Test::where('name', 'LIKE', '%{$s}%');
-    }
-    
+
 }
