@@ -6,7 +6,7 @@
     <title>Briskly School</title>
     <link href="./img/favicon.ico" rel="icon" />
     <script src="//code.jivo.ru/widget/T1uaMffeaS" async></script>
-    <script defer="defer" src="/static/js/main.a540fdb5.js"></script>
+    <script defer="defer" src="/static/js/main.1930b83d.js"></script>
     <link href="/static/css/main.01f30495.css" rel="stylesheet" />
 </head>
 <body>
